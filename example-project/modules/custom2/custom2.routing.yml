@@ -1,0 +1,7 @@
+custom2.example:
+  path: '/custom/2'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\custom2\Controller\Custom2Controller::build'
+  requirements:
+    _permission: 'access content'

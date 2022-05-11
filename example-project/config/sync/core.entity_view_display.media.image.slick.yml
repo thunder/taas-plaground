@@ -1,0 +1,98 @@
+uuid: 71d2ce31-ac9c-496c-b235-e36c2110e624
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.slick
+    - field.field.media.image.field_copyright
+    - field.field.media.image.field_description
+    - field.field.media.image.field_expires
+    - field.field.media.image.field_image
+    - field.field.media.image.field_source
+    - field.field.media.image.field_tags
+    - media.type.image
+    - responsive_image.styles.media_image
+  module:
+    - blazy
+    - empty_fields
+_core:
+  default_config_hash: xjreDPWsDKm34KoJvyIjB4443FLRPBpThBFBPkWrZT4
+id: media.image.slick
+targetEntityType: media
+bundle: image
+mode: slick
+content:
+  field_copyright:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: blazy
+    label: hidden
+    settings:
+      caption:
+        title: '0'
+        alt: '0'
+      icon: ''
+      layout: ''
+      view_mode: ''
+      cache: 0
+      current_view_mode: slick
+      skin: ''
+      fx: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      responsive_image_style: media_image
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      _uri: ''
+      breakpoints:
+        xs:
+          width: ''
+          image_style: ''
+        sm:
+          width: ''
+          image_style: ''
+        md:
+          width: ''
+          image_style: ''
+        lg:
+          width: ''
+          image_style: ''
+        xl:
+          width: ''
+          image_style: ''
+      sizes: ''
+      grid_header: ''
+      grid: '0'
+      grid_medium: '0'
+      grid_small: '0'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_brands: true
+  field_channel: true
+  field_description: true
+  field_events: true
+  field_expires: true
+  field_people: true
+  field_source: true
+  field_tags: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

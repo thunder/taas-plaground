@@ -1,0 +1,50 @@
+uuid: b930d75e-7f6c-45b5-acdd-2630a3f86070
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.paragraph_preview
+    - field.field.media.twitter.field_author
+    - field.field.media.twitter.field_content
+    - field.field.media.twitter.field_url
+    - image.style.paragraph_preview_thumbnail
+    - media.type.twitter
+  module:
+    - image
+_core:
+  default_config_hash: lKYKaN11pEIVMmMQq8LzHNb9IPvIa6F_kEqjsi4dxIk
+id: media.twitter.paragraph_preview
+targetEntityType: media
+bundle: twitter
+mode: paragraph_preview
+content:
+  field_author:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_content:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: paragraph_preview_thumbnail
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_url: true
+  langcode: true
+  name: true
+  uid: true

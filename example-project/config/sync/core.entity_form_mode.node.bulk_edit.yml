@@ -1,0 +1,12 @@
+uuid: ebc933c4-e990-4ba2-a1d7-d1f9e43c70a7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: rTCJgWRmKhXoWT4u0ILnytrhn-V6ql1xw_BvefhfAf8
+id: node.bulk_edit
+label: 'Bulk Edit'
+targetEntityType: node
+cache: true

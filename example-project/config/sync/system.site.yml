@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: l58O_yEXSo-SeJi19LXdzTU1tNJG3lmnIhCitRkM1tk
+langcode: en
+uuid: 0099bd99-c9fd-4845-9802-3830cbe7bd6d
+name: 'Site 2'
+mail: admin@site2.test
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /front
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en

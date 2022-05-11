@@ -1,0 +1,94 @@
+parameters:
+  version: '1.0.0-dev'
+  build_directory: 'build'
+  config_directory: 'config/sync'
+  document_root_directory: 'docroot'
+  composer_template: 'thunder/taas-project:*'
+  taas_configuration_file: '%base_directory%/taas.yml'
+  optional_thunder_packages:
+    access_unpublished: "drupal/access_unpublished"
+    adsense: "drupal/adsense"
+    admin_toolbar: "drupal/admin_toolbar"
+    autofill: "drupal/autofill"
+    autosave_form: "drupal/autosave_form"
+    better_normalizers: "drupal/better_normalizers"
+    blazy: "drupal/blazy"
+    checklistapi: "drupal/checklistapi"
+    config_selector: "drupal/config_selector"
+    config_update: "drupal/config_update"
+    content_lock: "drupal/content_lock"
+    crop: "drupal/crop"
+    ctools: "drupal/ctools"
+    default_content: "drupal/default_content"
+    diff: "drupal/diff"
+    dropzonejs: "drupal/dropzonejs"
+    empty_fields: "drupal/empty_fields"
+    entity_browser: "drupal/entity_browser"
+    entity_reference_actions: "drupal/entity_reference_actions"
+    entity_reference_revisions: "drupal/entity_reference_revisions"
+    facets: "drupal/facets"
+    field_group: "drupal/field_group"
+    focal_point: "drupal/focal_point"
+    google_analytics: "drupal/google_analytics"
+    graphql: "drupal/graphql"
+    inline_entity_form: "drupal/inline_entity_form"
+    ivw_integration: "drupal/ivw_integration"
+    length_indicator: "drupal/length_indicator"
+    linkit: "drupal/linkit"
+    liveblog: "drupal/liveblog"
+    media_entity_instagram: "drupal/media_entity_instagram"
+    media_entity_pinterest: "drupal/media_entity_pinterest"
+    media_entity_slideshow: "drupal/media_entity_slideshow"
+    media_entity_twitter: "drupal/media_entity_twitter"
+    media_expire: "drupal/media_expire"
+    metatag: "drupal/metatag"
+    metatag_async_widget: "drupal/metatag_async_widget"
+    paragraphs: "drupal/paragraphs"
+    paragraphs_features: "drupal/paragraphs_features"
+    paragraphs_paste: "drupal/paragraphs_paste"
+    password_policy: "drupal/password_policy"
+    pathauto: "drupal/pathauto"
+    redirect: "drupal/redirect"
+    responsive_preview: "drupal/responsive_preview"
+    scheduler: "drupal/scheduler"
+    scheduler_content_moderation_integration: "drupal/scheduler_content_moderation_integration"
+    schema_metatag: "drupal/schema_metatag"
+    search_api: "drupal/search_api"
+    search_api_mark_outdated: "drupal/search_api_mark_outdated"
+    select2: "drupal/select2"
+    shariff: "drupal/shariff"
+    simple_gmap: "drupal/simple_gmap"
+    simple_sitemap: "drupal/simple_sitemap"
+    slick: "drupal/slick"
+    thunder_admin: "drupal/thunder_admin"
+    token: "drupal/token"
+    typed_data: "drupal/typed_data-beta1"
+    update_helper: "drupal/update_helper"
+    views_bulk_edit: "drupal/views_bulk_edit"
+    views_bulk_operations: "drupal/views_bulk_operations"
+    eu_cookie_compliance: "drupal/eu_cookie_compliance"
+services:
+  _defaults:
+    autowire: true
+    public: false
+    bind:
+      string $baseDirectory: '%base_directory%'
+      string $configDirectory: '%config_directory%'
+      string $buildDirectory: '%build_directory%'
+      string $documentRootDirectory: '%document_root_directory%'
+      string $version: '%version%'
+
+  _instanceof:
+    Symfony\Component\Console\Command\Command:
+      tags: ['command']
+
+  Taas\Cli\Application:
+    public: true
+    arguments:
+      - !tagged command
+
+  Taas\Cli\Command\BuildCommand:
+    public: true
+    bind:
+      string $composerTemplate: '%composer_template%'
+      iterable $optionalThunderPackages: '%optional_thunder_packages%'

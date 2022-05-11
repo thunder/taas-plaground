@@ -1,0 +1,30 @@
+uuid: 5737b770-a079-4796-80e0-4e8362580b0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.text.field_headline
+    - field.field.paragraph.text.field_text
+    - paragraphs.paragraphs_type.text
+  module:
+    - text
+_core:
+  default_config_hash: '-Up-HQ1DX4hlnAqShRHHkn8EEXU-brFo_73rlP9th0U'
+id: paragraph.text.preview
+targetEntityType: paragraph
+bundle: text
+mode: preview
+content:
+  field_text:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_headline: true
+  uid: true

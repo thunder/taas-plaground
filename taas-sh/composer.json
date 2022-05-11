@@ -1,0 +1,20 @@
+{
+    "name": "thunder/taas-builder",
+    "description": "Scripts for building TaaS projects.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Daniel Bosen",
+            "email": "daniel.bosen@burda.com"
+        }
+    ],
+    "bin": [
+        "bin/taas"
+    ],
+    "require": {
+        "php": ">=8.1"
+    }
+}

@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+### Functions ###
+
+# Output help to console.
+show_help() {
+    cat <<EOF
+Usage:   ${0##*/} [-h|--help] [TASK]
+Build TaaS project.
+
+Parameter:
+    TASK                     The task to execute.
+                             Possible values: build, install
+Options:
+    -h,  --help              Display this help.
+    -v, --verbose            Verbose output
+
+Example:
+    ${0##*/} build                   Build the project.
+    ${0##*/} install                 Install the project.
+EOF
+}
+
+# Get exact location of script.
+get_script_dir() {
+    local dir
+    local source="${BASH_SOURCE[0]}"
+
+    # resolve $source until the file is no longer a symlink
+    while [[ -L ${source} ]]; do
+        dir="$(cd -P "$(dirname "${source}")" && pwd)"
+        source="$(readlink "$source")"
+
+        # if $source was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+        [[ ${source} != /* ]] && source="${dir}/${source}"
+    done
+    cd -P "$(dirname "${source}")" && pwd
+}
+### Parse command arguments ###
+
+for i in "${@}"; do
+    case ${i} in
+    -h | -\? | --help)
+        show_help
+        exit
+        ;;
+    -v | --verbose)
+        export TAAS_VERBOSE=true
+        ;;
+    -?*)
+        printf "Unknown option: %s\n" "${i}"
+        show_help
+        exit 1
+        ;;
+    *)
+        # last option has to be the task
+        TAAS_TASK=${i}
+        ;;
+    esac
+done
+
+### Fallback values ###
+
+TAAS_TASK=${TAAS_TASK:-build}
+SCRIPT_DIR=$(get_script_dir)
+
+# Reset COMPOSER_BIN_DIR, otherwise composer exec will not work as expected in composer versions > 2.2.2
+unset COMPOSER_BIN_DIR
+
+### Source required files ###
+
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/../configuration.sh"
+
+if [ "${TAAS_VERBOSE}" = true ] ; then
+    set -o xtrace
+fi
+
+for library in "${SCRIPT_DIR}"/../lib/*.sh; do
+    # shellcheck source=/dev/null
+    source "${library}"
+done
+
+### Run task ###
+
+cd "${TAAS_PROJECT_BASEDIR}" || exit
+
+if ! task_exists "${TAAS_TASK}"; then
+    printf "Unknown task '%s'\n\n" "${TAAS_TASK}"
+    show_help
+    exit 1
+fi
+
+if ! check_requirements "${TAAS_TASK}"; then
+    printf "Requirements not met.\n\n"
+    exit 1
+fi
+
+# Get local environment.
+source "${TAAS_PROJECT_BASEDIR}"/configuration.sh
+
+# Run the task.
+run_task "${TAAS_TASK}"

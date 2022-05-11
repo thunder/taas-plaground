@@ -1,0 +1,6 @@
+/.idea
+/assets/docroot
+/assets/vendor
+/assets/.editorconfig
+/assets/.gitattributes
+.DS_Store

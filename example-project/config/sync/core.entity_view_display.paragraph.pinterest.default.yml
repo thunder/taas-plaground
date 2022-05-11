@@ -1,0 +1,28 @@
+uuid: a954f7ab-4fe7-4033-9870-9275f4798401
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pinterest.field_media
+    - paragraphs.paragraphs_type.pinterest
+  module:
+    - empty_fields
+_core:
+  default_config_hash: YfIggX2LuEP2o2bHQZUmHgrdi4A4dOxxx9v1mIkubHE
+id: paragraph.pinterest.default
+targetEntityType: paragraph
+bundle: pinterest
+mode: default
+content:
+  field_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 0
+    region: content
+hidden: {  }

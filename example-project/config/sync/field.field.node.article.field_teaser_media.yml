@@ -1,0 +1,28 @@
+uuid: 50ae0a0e-d76c-47e8-9be9-c6935b9999b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_teaser_media
+    - media.type.image
+    - node.type.article
+_core:
+  default_config_hash: _65-yZnxQvuta5YtIl23cUg9N6jsJ0Q-tJmzmx7Smio
+id: node.article.field_teaser_media
+field_name: field_teaser_media
+entity_type: node
+bundle: article
+label: 'Teaser Media'
+description: 'The teaser image is displayed on overview pages.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+field_type: entity_reference

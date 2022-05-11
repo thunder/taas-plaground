@@ -1,0 +1,30 @@
+uuid: 0a79dcae-89ad-4d4d-b48f-3e9d23c97588
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+  module:
+    - access_unpublished
+    - eu_cookie_compliance
+    - filter
+    - media
+    - system
+    - thunder_taxonomy
+_core:
+  default_config_hash: 3IJozmpbAhdbMEObnzkNDlsqU6fEjixLu-CQymMjK04
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access user profiles'
+  - 'access_unpublished node article'
+  - 'cancel account'
+  - 'change own username'
+  - 'display eu cookie compliance popup'
+  - 'use text format basic_html'
+  - 'view media'
+  - 'view published terms in channel'
+  - 'view published terms in tags'

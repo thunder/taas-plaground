@@ -1,0 +1,13 @@
+{
+   "main": "taas",
+   "directories": ["config", "src", "vendor"],
+   "finder": [
+      {
+         "name": "*.php",
+         "exclude": ["Tests", "tests"],
+         "in": "vendor"
+      }
+   ],
+   "compression": "BZ2",
+   "output": "build/taas.phar"
+}

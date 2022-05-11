@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Taas\Cli\Application;
+
+/**
+ * Determine vendor directory.
+ */
+$vendorDirectory = '';
+
+if (file_exists(__DIR__.'/../../autoload.php')) {
+    $vendorDirectory = __DIR__.'/../..';
+} elseif (file_exists(__DIR__.'/vendor/autoload.php')) {
+    $vendorDirectory = __DIR__.'/vendor';
+}
+
+if (empty($vendorDirectory)) {
+    throw new \RuntimeException('Unable to find autoloader.');
+}
+
+require $vendorDirectory.'/autoload.php';
+
+$container = new ContainerBuilder();
+
+// Load manual parameters
+$container->setParameter('base_directory', rtrim(getcwd(), '/'));
+
+// Load container configuration
+$loader = new YamlFileLoader($container, new FileLocator());
+$loader->load(__DIR__.'/config/services.yml');
+
+// Compile container
+$container->compile();
+
+// Start the console application.
+exit($container->get(Application::class)->run());

@@ -1,0 +1,8 @@
+{
+    "name": "thunder/taas-base",
+    "type": "metapackage",
+    "description": "Locked TaaS dependencies.",
+    "license": "GPL-2.0-or-later",
+    "require": {},
+    "require-dev": {}
+}

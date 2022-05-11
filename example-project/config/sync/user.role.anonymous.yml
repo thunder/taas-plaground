@@ -1,0 +1,28 @@
+uuid: c491a2a7-650a-4237-9e9b-4adcaa745ea5
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - access_unpublished
+    - eu_cookie_compliance
+    - filter
+    - media
+    - system
+    - thunder_taxonomy
+_core:
+  default_config_hash: 3VzReMhTytcoLvknE6EAlGs7m9yFVC2jiLkeuV21f_4
+id: anonymous
+label: 'Anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access user profiles'
+  - 'access_unpublished node article'
+  - 'display eu cookie compliance popup'
+  - 'use text format restricted_html'
+  - 'view media'
+  - 'view published terms in channel'
+  - 'view published terms in tags'
