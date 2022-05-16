@@ -24,7 +24,7 @@
         }
     ],
     "require": {
-        "thunder/taas-base": "dev-master@dev"
+        "thunder/taas-base": "dev-main@dev"
     },
     "conflict": {
         "drupal/drupal": "*"
