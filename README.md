@@ -6,7 +6,7 @@ The goal is, to be able to quickly test and verify ideas and concepts for the Ta
 ## Example Project (./example-project)
 An example project, that uses a new project layout. It only contains custom code and config, but no dependencies.
 
-## TaaS Dependencies (./taas-dependencies)
+## TaaS Base Dependencies (./taas-base)
 A project to create locked dependencies for all projects to use.
 
 ## TaaS CLI and Taas shell script (./taas-cli, ./taas-sh)

@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../../taas-dependencies"
+            "url": "../../taas-base"
         },
         {
             "type": "composer",
@@ -24,7 +24,7 @@
         }
     ],
     "require": {
-        "thunder/taas-dependencies": "dev-master@dev"
+        "thunder/taas-base": "dev-master@dev"
     },
     "conflict": {
         "drupal/drupal": "*"
