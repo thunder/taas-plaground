@@ -62,8 +62,8 @@ class BuildCommand extends TaasCommandBase
         */
         // For now, copy it from local directory
         $filesystem = new Filesystem();
-        if($filesystem->exists($this->baseDirectory . '/../taas-project')) {
-            $filesystem->mirror($this->baseDirectory . '/../taas-project', $this->buildDirectory);
+        if($filesystem->exists($this->baseDirectory . '/../taas-build-project')) {
+            $filesystem->mirror($this->baseDirectory . '/../taas-build-project', $this->buildDirectory);
         }
         else {
             $io->error('Project template not found');
