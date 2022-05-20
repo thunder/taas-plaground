@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "thunder/taas-project": {
+      "dev-master": {
+        "name": "thunder/taas-project",
+        "version": "1.0.0",
+        "dist": {
+          "url": "../taas-build-project",
+          "type": "path"
+        }
+      }
+    }
+  }
+}

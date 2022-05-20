@@ -8,6 +8,14 @@ It restricts the downloaded dependencies by comparing the enabled drupal modules
 with the list of optional modules (currently defined in the config/services.yml) and placing all optional modules, that
 are not enabled, into the "replace" key of the build composer.json.
 
+## Requirements
+
+### PHIVE
+
+[PHIVE](https://github.com/phar-io/phive) is needed to build the PHAR package.
+
+    brew install phive
+
 ## Build project
 
 call within your project root:
@@ -17,7 +25,7 @@ call within your project root:
 To locally work on this project run
 
     composer install
-    phive install
+    phive install --force-accept-unsigned
 
 to create the phar run
 

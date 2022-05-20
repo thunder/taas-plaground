@@ -12,7 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Yaml\Yaml;
 
 #[AsCommand(
     name: 'build',
@@ -43,7 +42,6 @@ class BuildCommand extends TaasCommandBase
     {
         // Override base directory, if necessary.
         $this->baseDirectory = $input->getArgument('base-directory')?:$this->baseDirectory;
-        $composerTemplate = $this->composerTemplate;
 
         $io = new SymfonyStyle($input, $output);
 
@@ -55,23 +53,12 @@ class BuildCommand extends TaasCommandBase
 
         $io->info('Create project');
 
-        // Currently not possible, until taas-project is on packagist
-        /*
-        Process::fromShellCommandline('composer create-project "${:template}" "${:build_directory}" --no-interaction --no-install')
-            ->run(null, ['template' => $composerTemplate, 'build_directory' => $buildDirectory]);
-        */
-        // For now, copy it from local directory
-        $filesystem = new Filesystem();
-        if($filesystem->exists($this->baseDirectory . '/../taas-build-project')) {
-            $filesystem->mirror($this->baseDirectory . '/../taas-build-project', $this->buildDirectory);
-        }
-        else {
-            $io->error('Project template not found');
-            return Command::FAILURE;
-        }
+        // Currently, not possible, until taas-project is on packagist
+        Process::fromShellCommandline('COMPOSER_MIRROR_PATH_REPOS=1 composer create-project --repository="${:repository_file}" "${:template}" "${:build_directory}" --no-interaction --no-install')
+            ->run(null, ['template' => $this->composerTemplate, 'build_directory' => $this->buildDirectory, 'repository_file' => __DIR__ . '/../../packages.json']);
 
-        $io->info('Remove unused modules.');
-        $this->removeUnusedModules();
+        $io->info('Add packages.');
+        $this->addPackages();
 
         $io->info('Install project');
         Process::fromShellCommandline("composer install", $this->buildDirectory)->run();
@@ -79,6 +66,20 @@ class BuildCommand extends TaasCommandBase
         $io->info('Link custom code.');
         $this->linkCustomCode();
         return Command::SUCCESS;
+    }
+
+    protected function addPackages(): void {
+
+        $config =  json_decode(file_get_contents($this->baseDirectory . '/.taasrc.json'), true);
+        $composerFile = json_decode(file_get_contents($this->buildDirectory . '/composer.json'), true);
+
+        $composerFile['repositories']['taas']['url'] = $config['endpoint'] . DIRECTORY_SEPARATOR . $config['version'];
+
+        foreach ($config['modules'] as $module) {
+            $composerFile['require'][$module] = "*";
+        }
+
+        file_put_contents($this->buildDirectory . '/composer.json', json_encode($composerFile, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     }
 
     /**
@@ -100,32 +101,4 @@ class BuildCommand extends TaasCommandBase
         }
     }
 
-    /**
-     * Remove dependencies on Drupal modules, that are not enabled.
-     *
-     * TODO: We have to implement a mechanism, that prevents removal if dependency is still enabled on production.
-     * @return void
-     */
-    protected function removeUnusedModules(): void
-    {
-        $coreExtension = Yaml::parseFile($this->configDirectory. '/core.extension.yml');
-        $enabledExtensions = array_merge($coreExtension['module'], $coreExtension['theme']);
-        $optionalThunderPackages = $this->optionalThunderPackages;
-
-        $composerFile = json_decode(file_get_contents($this->buildDirectory . '/composer.json'), true);
-
-        if (!isset($composerFile['replace'])){
-            $composerFile['replace'] = [];
-        }
-
-        // Do not install modules, that are not enabled.
-        // TODO: decide if we should install them on develop
-        foreach ($optionalThunderPackages as $extension => $package) {
-            if (!isset($enabledExtensions[$extension])) {
-                $composerFile['replace'][$package] = "*";
-            }
-        }
-
-        file_put_contents($this->buildDirectory . '/composer.json', json_encode($composerFile, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-    }
 }
