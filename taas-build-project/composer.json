@@ -9,22 +9,16 @@
             "email": "daniel.bosen@burda.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../../taas-base"
-        },
-        {
+    "repositories": {
+        "taas": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        },
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
+            "url": ""
         }
-    ],
+    },
     "require": {
-        "thunder/taas-base": "dev-main@dev"
+        "composer/installers": "^1.9",
+        "drupal/core-composer-scaffold": "^9.3",
+        "thunder/thunder-distribution": "*"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -57,6 +51,7 @@
         }
     },
     "config": {
+        "secure-http": false,
         "sort-packages": true,
         "process-timeout": 2000,
         "allow-plugins": {

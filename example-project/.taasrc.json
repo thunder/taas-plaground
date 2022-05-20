@@ -1,0 +1,7 @@
+{
+  "endpoint": "http://127.0.0.1:9696",
+  "version": "1",
+  "modules": [
+    "drupal/eu_cookie_compliance"
+  ]
+}
